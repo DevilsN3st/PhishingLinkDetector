@@ -1,0 +1,8 @@
+pandas>=2.2
+numpy>=1.26
+scikit-learn>=1.6
+joblib>=1.4
+tldextract>=5.1
+requests>=2.31
+kagglehub>=0.3
+pyarrow>=15

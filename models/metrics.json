@@ -1,0 +1,150 @@
+{
+  "threshold": 0.454,
+  "test": {
+    "char_ngram_only": {
+      "n": 234683,
+      "accuracy": 0.9003,
+      "precision": 0.9182,
+      "recall": 0.8785,
+      "f1": 0.8979,
+      "roc_auc": 0.9649,
+      "pr_auc": 0.9684,
+      "false_positive_rate": 0.078
+    },
+    "lexical_gbm_only": {
+      "n": 234683,
+      "accuracy": 0.8897,
+      "precision": 0.9068,
+      "recall": 0.8684,
+      "f1": 0.8872,
+      "roc_auc": 0.9613,
+      "pr_auc": 0.9663,
+      "false_positive_rate": 0.089
+    },
+    "stacked": {
+      "n": 234683,
+      "accuracy": 0.924,
+      "precision": 0.9381,
+      "recall": 0.9076,
+      "f1": 0.9226,
+      "roc_auc": 0.9795,
+      "pr_auc": 0.9819,
+      "false_positive_rate": 0.0597
+    }
+  },
+  "test_by_source": {
+    "hf_ealvaradob": {
+      "n": 980,
+      "accuracy": 0.8163,
+      "precision": 0.6812,
+      "recall": 0.9268,
+      "f1": 0.7852,
+      "roc_auc": 0.9529,
+      "pr_auc": 0.9379,
+      "false_positive_rate": 0.2464
+    },
+    "hf_kmack": {
+      "n": 8057,
+      "accuracy": 0.9022,
+      "precision": 0.7314,
+      "recall": 0.9586,
+      "f1": 0.8297,
+      "roc_auc": 0.9797,
+      "pr_auc": 0.9636,
+      "false_positive_rate": 0.1165
+    },
+    "kaggle_harisudhan_urls": {
+      "n": 27029,
+      "accuracy": 0.8752,
+      "precision": 0.9904,
+      "recall": 0.8591,
+      "f1": 0.9201,
+      "roc_auc": 0.9845,
+      "pr_auc": 0.9966,
+      "false_positive_rate": 0.0424
+    },
+    "kaggle_malicious_urls": {
+      "n": 7039,
+      "accuracy": 0.878,
+      "precision": 0.9974,
+      "recall": 0.7829,
+      "f1": 0.8772,
+      "roc_auc": 0.9977,
+      "pr_auc": 0.9981,
+      "false_positive_rate": 0.0026
+    },
+    "kaggle_phishing_site_urls": {
+      "n": 66682,
+      "accuracy": 0.9678,
+      "precision": 0.8521,
+      "recall": 0.9544,
+      "f1": 0.9004,
+      "roc_auc": 0.9935,
+      "pr_auc": 0.9752,
+      "false_positive_rate": 0.0298
+    },
+    "phishing_army": {
+      "n": 13919,
+      "recall": 0.8626
+    },
+    "phishing_database": {
+      "n": 40028,
+      "recall": 0.9779
+    },
+    "phishing_database_domains": {
+      "n": 14820,
+      "recall": 0.9094
+    },
+    "scam_domains": {
+      "n": 732,
+      "recall": 0.3169
+    },
+    "tranco": {
+      "n": 6165,
+      "false_positive_rate": 0.0907
+    },
+    "tranco_majestic": {
+      "n": 27491,
+      "false_positive_rate": 0.09
+    },
+    "uci_phiusiil": {
+      "n": 21741,
+      "accuracy": 0.8702,
+      "precision": 0.8498,
+      "recall": 0.8165,
+      "f1": 0.8328,
+      "roc_auc": 0.9255,
+      "pr_auc": 0.9259,
+      "false_positive_rate": 0.0947
+    }
+  },
+  "test_brand_impersonation_slice": {
+    "n": 31323,
+    "accuracy": 0.9488,
+    "precision": 0.9678,
+    "recall": 0.964,
+    "f1": 0.9659,
+    "roc_auc": 0.9878,
+    "pr_auc": 0.9961,
+    "false_positive_rate": 0.0971
+  },
+  "live_recall_by_feed": {
+    "openphish": 0.9465,
+    "phishunt": 0.9004
+  },
+  "rows": {
+    "train": 1835018,
+    "val": 201179,
+    "test": 234683,
+    "live": 1052,
+    "refit": 2282255
+  },
+  "boosting_iterations": {
+    "lexical": 311,
+    "stacked": 251
+  },
+  "refit_live_recall_by_feed": {
+    "openphish": 0.9398,
+    "phishunt": 0.8845
+  }
+}
