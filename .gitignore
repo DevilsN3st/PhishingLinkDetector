@@ -3,5 +3,9 @@ __pycache__/
 *.pyc
 data/
 models/*.joblib
+models/*.parquet
 .DS_Store
 models/*.log
+benchmarks/**/__pycache__/
+benchmarks/*.log
+benchmarks/results/scores/*.npz

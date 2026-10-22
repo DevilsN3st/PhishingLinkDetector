@@ -1,0 +1,21 @@
+{
+  "model": "rf_features",
+  "family": "lexical features",
+  "train_rows": 2399377,
+  "roc_auc": 0.9352,
+  "pr_auc": 0.9445,
+  "f1": 0.8591,
+  "precision": 0.8648,
+  "recall": 0.8534,
+  "fpr": 0.1486,
+  "brand_slice_f1": 0.9292,
+  "live_openphish_recall": 0.949,
+  "live_phishunt_recall": 0.9863,
+  "train_seconds": 48.4,
+  "urls_per_sec": 1933,
+  "size_mb": 184.0,
+  "notes": "150 trees, TLD as ordinal code",
+  "ext_phreshphish_auc": 0.9715,
+  "ext_jpxxx_auc": 0.9077,
+  "ext_deepurlbench_auc": 0.9124
+}

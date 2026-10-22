@@ -6,9 +6,12 @@ Output: data/processed/urls.parquet  (columns: url, norm, label, source, reg_dom
 
 label: 1 = phishing, 0 = legitimate
 split: train / val / test are grouped by registered domain so the same site
-never appears on both sides. "live" is the OpenPhish + phishunt feeds, held out
-entirely as a fresh, out-of-distribution check. Synthetic brand-impersonation
-rows are only placed in train, or in "refit_only" when their site is held out.
+never appears on both sides. "live" is the OpenPhish + phishunt + PhishStats
+feeds, held out entirely as a fresh, out-of-distribution check. Synthetic
+brand-impersonation rows are only placed in train, or in "refit_only" when their
+site is held out. "ext_phreshphish" (PhreshPhish's own test split) and
+"ext_jpxxx" (fold 0 of the JPxxx URL benchmark) are external test sets that are
+never trained on; rows whose URL also occurs in the pool are dropped from them.
 """
 
 import argparse
@@ -25,7 +28,9 @@ from .synthetic import generate as generate_synthetic
 
 SEED = 42
 TRANCO_CSV = RAW_DIR / "tranco_top1m" / "top-1m.csv"
-LIVE_SOURCES = {"openphish", "phishunt"}
+LIVE_SOURCES = {"openphish", "phishunt", "phishstats"}
+EXTERNAL_SOURCES = {"ext_phreshphish", "ext_jpxxx", "ext_deepurlbench"}
+JPXXX_EVAL_ROWS = 100_000
 # Kept out of synthetic generation so the URL that motivated it stays a fair test.
 SYNTHETIC_EXCLUDE = ("order-distribution.com",)
 
@@ -115,6 +120,46 @@ def load_phishunt():
     return _frame(_read_lines(RAW_DIR / "phishunt_feed.txt"), 1, "phishunt")
 
 
+def load_phishstats():
+    return _frame(_read_lines(RAW_DIR / "phishstats_feed.txt"), 1, "phishstats")
+
+
+def load_cert_pl():
+    return _frame(_read_lines(RAW_DIR / "cert_pl_domains.txt"), 1, "cert_pl")
+
+
+def load_phishdestroy():
+    return _frame(_read_lines(RAW_DIR / "phishdestroy_domains.txt"), 1, "phishdestroy")
+
+
+def _phreshphish(hf_split):
+    df = pd.read_parquet(RAW_DIR / "hf_phreshphish.parquet")
+    df = df[df["hf_split"] == hf_split]
+    out = _frame(df["url"], (df["label"] == "phish").astype(int), "phreshphish")
+    return out.assign(date=pd.to_datetime(df["date"]).to_numpy())
+
+
+def load_phreshphish():
+    return _phreshphish("train")
+
+
+def load_ext_phreshphish():
+    return _phreshphish("test").assign(source="ext_phreshphish")
+
+
+def load_ext_jpxxx():
+    df = pd.read_parquet(RAW_DIR / "jpxxx_url_benchmark.parquet")
+    df = df[df["fold"] == 0].sample(JPXXX_EVAL_ROWS, random_state=SEED)
+    return _frame(df["url"], (df["label"] == "malicious").astype(int), "ext_jpxxx")
+
+
+def load_ext_deepurlbench():
+    """Held-out sample of DeepURLBench (phishing vs benign only; malware dropped)."""
+    df = pd.read_parquet(RAW_DIR / "hf_deepurlbench_sample.parquet")
+    df = df[df["label"].isin(["phishing", "benign"])]
+    return _frame(df["url"], (df["label"] == "phishing").astype(int), "ext_deepurlbench")
+
+
 def _tranco(nrows=None):
     return pd.read_csv(TRANCO_CSV, header=None, names=["rank", "domain"], nrows=nrows)
 
@@ -150,8 +195,15 @@ LOADERS = {
     "scam_domains": lambda a: load_scam_domains(),
     "tranco": lambda a: load_tranco(a.tranco_top),
     "tranco_majestic": lambda a: load_tranco_majestic(a.tranco_top),
+    "cert_pl": lambda a: load_cert_pl(),
+    "phishdestroy": lambda a: load_phishdestroy(),
+    "phreshphish": lambda a: load_phreshphish(),
     "openphish": lambda a: load_openphish(),
     "phishunt": lambda a: load_phishunt(),
+    "phishstats": lambda a: load_phishstats(),
+    "ext_phreshphish": lambda a: load_ext_phreshphish(),
+    "ext_jpxxx": lambda a: load_ext_jpxxx(),
+    "ext_deepurlbench": lambda a: load_ext_deepurlbench(),
 }
 
 
@@ -225,6 +277,8 @@ def main():
     df["norm"] = df["url"].map(normalize_url)
     df = df[df["norm"].str.len() >= 4]
 
+    is_ext = df["source"].isin(EXTERNAL_SOURCES)
+    ext, df = df[is_ext], df[~is_ext]
     df = _resolve_conflicts(df)
 
     # Live feeds are held out: remove their URLs from every other source first.
@@ -259,7 +313,16 @@ def main():
         syn.loc[syn["reg_domain"].isin(held_out_domains), "split"] = "refit_only"
         parts.append(syn)
 
-    out = pd.concat(parts, ignore_index=True)[["url", "norm", "label", "source", "reg_domain", "split"]]
+    train_domains = set(rest.loc[rest["split"] == "train", "reg_domain"])
+    ext = ext.drop_duplicates(["source", "norm"])
+    ext = ext[~ext["norm"].isin(rest["norm"]) & ~ext["norm"].isin(live["norm"])]
+    ext = ext.assign(reg_domain=ext["norm"].map(registered_domain), split=ext["source"])
+    ext["seen_domain"] = ext["reg_domain"].isin(train_domains)
+    parts.append(ext)
+
+    cols = ["url", "norm", "label", "source", "reg_domain", "split", "date", "seen_domain"]
+    out = pd.concat(parts, ignore_index=True).reindex(columns=cols)
+    out["seen_domain"] = out["seen_domain"].fillna(False).astype(bool)
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     out.to_parquet(PROCESSED_DIR / "urls.parquet", index=False)
 

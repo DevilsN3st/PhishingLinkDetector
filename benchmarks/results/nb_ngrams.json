@@ -1,0 +1,21 @@
+{
+  "model": "nb_ngrams",
+  "family": "text n-grams",
+  "train_rows": 2399377,
+  "roc_auc": 0.9342,
+  "pr_auc": 0.9443,
+  "f1": 0.8608,
+  "precision": 0.8672,
+  "recall": 0.8545,
+  "fpr": 0.1457,
+  "brand_slice_f1": 0.922,
+  "live_openphish_recall": 0.9592,
+  "live_phishunt_recall": 0.9468,
+  "train_seconds": 75.1,
+  "urls_per_sec": 36421,
+  "size_mb": 64.4,
+  "notes": "char 3-5 grams, hashed 2^21, TF-IDF",
+  "ext_phreshphish_auc": 0.971,
+  "ext_jpxxx_auc": 0.9326,
+  "ext_deepurlbench_auc": 0.8801
+}

@@ -1,0 +1,21 @@
+{
+  "model": "distilbert_200k",
+  "family": "transformer (fine-tuned)",
+  "train_rows": 200000,
+  "roc_auc": 0.9699,
+  "pr_auc": 0.9749,
+  "f1": 0.9068,
+  "precision": 0.9034,
+  "recall": 0.9103,
+  "fpr": 0.1087,
+  "brand_slice_f1": 0.9068,
+  "live_openphish_recall": 0.9898,
+  "live_phishunt_recall": 0.972,
+  "train_seconds": 1742.4,
+  "urls_per_sec": 496,
+  "size_mb": 267.8,
+  "notes": "distilbert-base-uncased, 67.0M params, 1 epoch(s), max_len 64, mps, eval capped at 80,000 rows/split",
+  "ext_phreshphish_auc": 0.9855,
+  "ext_jpxxx_auc": 0.9559,
+  "ext_deepurlbench_auc": 0.9292
+}

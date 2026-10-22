@@ -1,0 +1,9 @@
+{
+  "model": "lgbm_features",
+  "family": "lexical features",
+  "train_rows": 2399377,
+  "train_seconds": 24.2,
+  "urls_per_sec": 1921,
+  "size_mb": 2.4,
+  "notes": ""
+}

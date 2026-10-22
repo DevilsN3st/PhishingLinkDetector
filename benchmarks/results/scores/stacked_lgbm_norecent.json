@@ -1,0 +1,9 @@
+{
+  "model": "stacked_lgbm_norecent",
+  "family": "stacked (text + features)",
+  "train_rows": 2298262,
+  "train_seconds": 141.5,
+  "urls_per_sec": 1824,
+  "size_mb": 13.1,
+  "notes": "PhreshPhish rows dated >= 2025-07-01 removed from train (101,115 rows)"
+}

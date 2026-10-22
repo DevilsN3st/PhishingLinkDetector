@@ -1,0 +1,21 @@
+{
+  "model": "char_cnn",
+  "family": "neural (char CNN)",
+  "train_rows": 2399377,
+  "roc_auc": 0.9605,
+  "pr_auc": 0.9645,
+  "f1": 0.9005,
+  "precision": 0.9015,
+  "recall": 0.8995,
+  "fpr": 0.1094,
+  "brand_slice_f1": 0.9005,
+  "live_openphish_recall": 0.983,
+  "live_phishunt_recall": 0.9691,
+  "train_seconds": 1465.7,
+  "urls_per_sec": 23758,
+  "size_mb": 1.7,
+  "notes": "0.41M params, 3 epochs, best val epoch kept, mps",
+  "ext_phreshphish_auc": 0.9841,
+  "ext_jpxxx_auc": 0.9469,
+  "ext_deepurlbench_auc": 0.9145
+}

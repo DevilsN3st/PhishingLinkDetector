@@ -1,0 +1,9 @@
+{
+  "model": "char_cnn",
+  "family": "neural (char CNN)",
+  "train_rows": 2399377,
+  "train_seconds": 1465.7,
+  "urls_per_sec": 23758,
+  "size_mb": 1.7,
+  "notes": "0.41M params, 3 epochs, best val epoch kept, mps"
+}

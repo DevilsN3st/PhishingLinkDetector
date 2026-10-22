@@ -1,0 +1,21 @@
+{
+  "model": "stacked_lgbm_200k",
+  "family": "stacked (text + features)",
+  "train_rows": 200000,
+  "roc_auc": 0.9645,
+  "pr_auc": 0.9691,
+  "f1": 0.9013,
+  "precision": 0.9028,
+  "recall": 0.8998,
+  "fpr": 0.1079,
+  "brand_slice_f1": 0.9565,
+  "live_openphish_recall": 0.9796,
+  "live_phishunt_recall": 0.9856,
+  "train_seconds": 36.5,
+  "urls_per_sec": 1791,
+  "size_mb": 9.5,
+  "notes": "",
+  "ext_phreshphish_auc": 0.9852,
+  "ext_jpxxx_auc": 0.937,
+  "ext_deepurlbench_auc": 0.9355
+}

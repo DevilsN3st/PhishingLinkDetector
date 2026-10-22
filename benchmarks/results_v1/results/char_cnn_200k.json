@@ -1,0 +1,18 @@
+{
+  "model": "char_cnn_200k",
+  "family": "neural (char CNN)",
+  "train_rows": 200000,
+  "roc_auc": 0.9628,
+  "pr_auc": 0.9673,
+  "f1": 0.8903,
+  "precision": 0.9057,
+  "recall": 0.8755,
+  "fpr": 0.0909,
+  "brand_slice_f1": 0.951,
+  "live_openphish_recall": 0.9498,
+  "live_phishunt_recall": 0.9216,
+  "train_seconds": 361.0,
+  "urls_per_sec": 18854,
+  "size_mb": 1.7,
+  "notes": "0.41M params, 6 epochs, best val epoch kept, mps"
+}

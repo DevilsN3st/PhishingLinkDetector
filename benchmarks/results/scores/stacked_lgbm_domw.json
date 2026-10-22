@@ -1,0 +1,9 @@
+{
+  "model": "stacked_lgbm_domw",
+  "family": "stacked (text + features)",
+  "train_rows": 2399377,
+  "train_seconds": 143.6,
+  "urls_per_sec": 1835,
+  "size_mb": 13.1,
+  "notes": "rows per (domain, label) down-weighted to at most 1000"
+}

@@ -1,0 +1,18 @@
+{
+  "model": "lgbm_features",
+  "family": "lexical features",
+  "train_rows": 1835018,
+  "roc_auc": 0.9616,
+  "pr_auc": 0.9667,
+  "f1": 0.8857,
+  "precision": 0.8973,
+  "recall": 0.8744,
+  "fpr": 0.0997,
+  "brand_slice_f1": 0.9458,
+  "live_openphish_recall": 0.9632,
+  "live_phishunt_recall": 0.9814,
+  "train_seconds": 16.7,
+  "urls_per_sec": 20700,
+  "size_mb": 1.8,
+  "notes": ""
+}

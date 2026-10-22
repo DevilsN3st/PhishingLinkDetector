@@ -1,0 +1,9 @@
+{
+  "model": "nb_ngrams",
+  "family": "text n-grams",
+  "train_rows": 2399377,
+  "train_seconds": 75.1,
+  "urls_per_sec": 36421,
+  "size_mb": 64.4,
+  "notes": "char 3-5 grams, hashed 2^21, TF-IDF"
+}

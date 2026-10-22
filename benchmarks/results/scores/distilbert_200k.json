@@ -1,0 +1,9 @@
+{
+  "model": "distilbert_200k",
+  "family": "transformer (fine-tuned)",
+  "train_rows": 200000,
+  "train_seconds": 1742.4,
+  "urls_per_sec": 496,
+  "size_mb": 267.8,
+  "notes": "distilbert-base-uncased, 67.0M params, 1 epoch(s), max_len 64, mps, eval capped at 80,000 rows/split"
+}

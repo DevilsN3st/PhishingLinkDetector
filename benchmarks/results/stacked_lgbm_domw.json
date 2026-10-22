@@ -1,0 +1,21 @@
+{
+  "model": "stacked_lgbm_domw",
+  "family": "stacked (text + features)",
+  "train_rows": 2399377,
+  "roc_auc": 0.9686,
+  "pr_auc": 0.973,
+  "f1": 0.9084,
+  "precision": 0.9074,
+  "recall": 0.9094,
+  "fpr": 0.1033,
+  "brand_slice_f1": 0.9585,
+  "live_openphish_recall": 0.9864,
+  "live_phishunt_recall": 0.9892,
+  "train_seconds": 143.6,
+  "urls_per_sec": 1835,
+  "size_mb": 13.1,
+  "notes": "rows per (domain, label) down-weighted to at most 1000",
+  "ext_phreshphish_auc": 0.9882,
+  "ext_jpxxx_auc": 0.942,
+  "ext_deepurlbench_auc": 0.9451
+}

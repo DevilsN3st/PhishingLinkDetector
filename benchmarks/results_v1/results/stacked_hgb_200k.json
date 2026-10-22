@@ -1,0 +1,18 @@
+{
+  "model": "stacked_hgb_200k",
+  "family": "stacked (text + features)",
+  "train_rows": 200000,
+  "roc_auc": 0.9758,
+  "pr_auc": 0.9785,
+  "f1": 0.914,
+  "precision": 0.9321,
+  "recall": 0.8965,
+  "fpr": 0.0651,
+  "brand_slice_f1": 0.9622,
+  "live_openphish_recall": 0.9465,
+  "live_phishunt_recall": 0.9575,
+  "train_seconds": 26.0,
+  "urls_per_sec": 13429,
+  "size_mb": 10.1,
+  "notes": "current production design"
+}

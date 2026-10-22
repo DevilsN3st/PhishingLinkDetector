@@ -1,0 +1,9 @@
+{
+  "model": "xgb_features",
+  "family": "lexical features",
+  "train_rows": 2399377,
+  "train_seconds": 44.1,
+  "urls_per_sec": 1937,
+  "size_mb": 3.4,
+  "notes": ""
+}

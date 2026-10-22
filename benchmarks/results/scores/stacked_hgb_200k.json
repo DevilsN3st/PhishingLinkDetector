@@ -1,0 +1,9 @@
+{
+  "model": "stacked_hgb_200k",
+  "family": "stacked (text + features)",
+  "train_rows": 200000,
+  "train_seconds": 39.2,
+  "urls_per_sec": 1804,
+  "size_mb": 9.6,
+  "notes": "current production design"
+}

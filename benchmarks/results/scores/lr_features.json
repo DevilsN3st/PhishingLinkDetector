@@ -1,0 +1,9 @@
+{
+  "model": "lr_features",
+  "family": "lexical features",
+  "train_rows": 2399377,
+  "train_seconds": 79.0,
+  "urls_per_sec": 1922,
+  "size_mb": 0.0,
+  "notes": "standardized + one-hot TLD"
+}

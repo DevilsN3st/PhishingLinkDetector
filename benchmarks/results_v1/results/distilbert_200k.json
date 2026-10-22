@@ -1,0 +1,18 @@
+{
+  "model": "distilbert_200k",
+  "family": "transformer (fine-tuned)",
+  "train_rows": 200000,
+  "roc_auc": 0.9786,
+  "pr_auc": 0.9809,
+  "f1": 0.9184,
+  "precision": 0.9333,
+  "recall": 0.9039,
+  "fpr": 0.0644,
+  "brand_slice_f1": 0.9629,
+  "live_openphish_recall": 0.9699,
+  "live_phishunt_recall": 0.9509,
+  "train_seconds": 2226.9,
+  "urls_per_sec": 431,
+  "size_mb": 267.8,
+  "notes": "distilbert-base-uncased, 67M params, 1 epoch(s), max_len 64, mps"
+}

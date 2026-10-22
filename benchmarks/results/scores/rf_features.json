@@ -1,0 +1,9 @@
+{
+  "model": "rf_features",
+  "family": "lexical features",
+  "train_rows": 2399377,
+  "train_seconds": 48.4,
+  "urls_per_sec": 1933,
+  "size_mb": 184.0,
+  "notes": "150 trees, TLD as ordinal code"
+}

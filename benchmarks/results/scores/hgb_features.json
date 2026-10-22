@@ -1,0 +1,9 @@
+{
+  "model": "hgb_features",
+  "family": "lexical features",
+  "train_rows": 2399377,
+  "train_seconds": 60.4,
+  "urls_per_sec": 1931,
+  "size_mb": 2.0,
+  "notes": ""
+}

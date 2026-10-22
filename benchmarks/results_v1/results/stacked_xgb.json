@@ -1,0 +1,18 @@
+{
+  "model": "stacked_xgb",
+  "family": "stacked (text + features)",
+  "train_rows": 1835018,
+  "roc_auc": 0.9799,
+  "pr_auc": 0.9823,
+  "f1": 0.9222,
+  "precision": 0.9342,
+  "recall": 0.9105,
+  "fpr": 0.0639,
+  "brand_slice_f1": 0.966,
+  "live_openphish_recall": 0.9498,
+  "live_phishunt_recall": 0.9017,
+  "train_seconds": 108.1,
+  "urls_per_sec": 14448,
+  "size_mb": 12.0,
+  "notes": ""
+}

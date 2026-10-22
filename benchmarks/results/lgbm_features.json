@@ -1,0 +1,21 @@
+{
+  "model": "lgbm_features",
+  "family": "lexical features",
+  "train_rows": 2399377,
+  "roc_auc": 0.9429,
+  "pr_auc": 0.9515,
+  "f1": 0.867,
+  "precision": 0.8826,
+  "recall": 0.852,
+  "fpr": 0.1263,
+  "brand_slice_f1": 0.9324,
+  "live_openphish_recall": 0.9558,
+  "live_phishunt_recall": 0.9878,
+  "train_seconds": 24.2,
+  "urls_per_sec": 1921,
+  "size_mb": 2.4,
+  "notes": "",
+  "ext_phreshphish_auc": 0.9762,
+  "ext_jpxxx_auc": 0.9169,
+  "ext_deepurlbench_auc": 0.919
+}

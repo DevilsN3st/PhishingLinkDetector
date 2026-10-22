@@ -1,0 +1,18 @@
+{
+  "model": "hgb_features_200k",
+  "family": "lexical features",
+  "train_rows": 200000,
+  "roc_auc": 0.9589,
+  "pr_auc": 0.9639,
+  "f1": 0.8843,
+  "precision": 0.9066,
+  "recall": 0.8631,
+  "fpr": 0.0886,
+  "brand_slice_f1": 0.9432,
+  "live_openphish_recall": 0.9599,
+  "live_phishunt_recall": 0.9814,
+  "train_seconds": 11.1,
+  "urls_per_sec": 20154,
+  "size_mb": 1.7,
+  "notes": ""
+}

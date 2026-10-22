@@ -1,0 +1,18 @@
+{
+  "model": "lr_ngrams_200k",
+  "family": "text n-grams",
+  "train_rows": 200000,
+  "roc_auc": 0.9561,
+  "pr_auc": 0.9607,
+  "f1": 0.8835,
+  "precision": 0.8936,
+  "recall": 0.8736,
+  "fpr": 0.1036,
+  "brand_slice_f1": 0.9477,
+  "live_openphish_recall": 0.9599,
+  "live_phishunt_recall": 0.927,
+  "train_seconds": 14.1,
+  "urls_per_sec": 41234,
+  "size_mb": 8.8,
+  "notes": "char 3-5 grams, hashed 2^21, TF-IDF"
+}

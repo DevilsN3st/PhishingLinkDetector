@@ -6,14 +6,15 @@ model can score a link before anyone visits it.
 
 import math
 import re
-from collections import Counter
+import unicodedata
+from collections import Counter, defaultdict
 
 import numpy as np
 import pandas as pd
 import tldextract
 from joblib import Parallel, delayed
 
-from .brands import load_brands
+from .brands import CURATED_BRANDS, load_brands
 
 # Offline extractor: uses the public-suffix snapshot bundled with tldextract.
 _EXTRACT = tldextract.TLDExtract(suffix_list_urls=(), cache_dir=None)
@@ -42,12 +43,108 @@ def get_brands() -> frozenset:
 
 set_brands(load_brands())
 
+_EDIT_BRANDS_BY_LEN = defaultdict(list)
+for _b in CURATED_BRANDS:
+    if 4 <= len(_b) <= 18:
+        _EDIT_BRANDS_BY_LEN[len(_b)].append(_b)
+_EDIT_BRANDS_BY_LEN = {k: tuple(v) for k, v in _EDIT_BRANDS_BY_LEN.items()}
+
+
+def _lev(a: str, b: str, limit: int = 2) -> int:
+    if a == b:
+        return 0
+    if abs(len(a) - len(b)) > limit:
+        return limit + 1
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        curr = [i]
+        row_min = i
+        for j, cb in enumerate(b, 1):
+            v = min(curr[-1] + 1, prev[j] + 1, prev[j - 1] + (ca != cb))
+            curr.append(v)
+            if v < row_min:
+                row_min = v
+        if row_min > limit:
+            return limit + 1
+        prev = curr
+    return prev[-1]
+
+
+def _brand_min_edit(label: str) -> int:
+    """Edit distance to the nearest curated brand; 3 means '3 or more'."""
+    if not label or len(label) < 4:
+        return 3
+    best = 3
+    for n in range(max(4, len(label) - 2), min(18, len(label) + 2) + 1):
+        for b in _EDIT_BRANDS_BY_LEN.get(n, ()):
+            d = _lev(label, b, best - 1 if best < 3 else 2)
+            if d < best:
+                best = d
+                if best == 0:
+                    return 0
+    return best
+
+
+def _host_scripts(host: str) -> tuple[int, int, int]:
+    """homoglyph_count, non_ascii_count, mixed_script (0/1) on the host."""
+    scripts = set()
+    non_ascii = 0
+    homoglyphs = 0
+    for ch in host:
+        if ord(ch) > 127:
+            non_ascii += 1
+            try:
+                name = unicodedata.name(ch)
+            except ValueError:
+                continue
+            scripts.add(name.split()[0])
+            if "CYRILLIC" in name or "GREEK" in name:
+                homoglyphs += 1
+        elif ch.isalpha():
+            scripts.add("LATIN")
+    return homoglyphs, non_ascii, int(len(scripts) > 1)
+
+
+def _ip_tricks(host: str) -> tuple[int, int, int]:
+    """octal IPv4, decimal dword IP, hex IP."""
+    if _IPV4_RE.match(host):
+        return int(any(_OCTAL_OCTET_RE.match(p) for p in host.split("."))), 0, 0
+    if host.isdigit() and 8 <= len(host) <= 10:
+        return 0, 1, 0
+    if host.startswith("0x") and all(c in "0123456789abcdef" for c in host[2:]):
+        return 0, 0, 1
+    return 0, 0, 0
+
+
+def _open_redirect(query: str) -> int:
+    if not query:
+        return 0
+    for part in query.lower().split("&"):
+        key = part.split("=", 1)[0]
+        if key in _OPEN_REDIRECT_KEYS:
+            return 1
+    return 0
+
 _SCHEME_RE = re.compile(r"^[a-zA-Z][a-zA-Z0-9+.\-]*://")
 _SPLIT_RE = re.compile(r"^([^/?#]*)(.*)$", re.S)
 _IPV4_RE = re.compile(r"^\d{1,3}(\.\d{1,3}){3}$")
 _HEX_IP_RE = re.compile(r"^(0x[0-9a-f]+|\d{8,10})$")
+_OCTAL_OCTET_RE = re.compile(r"^0[0-7]{2,3}$")
 _HEX_RUN_RE = re.compile(r"[0-9a-f]{16,}")
 _TOKEN_RE = re.compile(r"[^a-zA-Z0-9]+")
+_ENCODED_URL_RE = re.compile(r"https?%3a%2f%2f|https?://", re.I)
+_REPEAT_RE = re.compile(r"(.)\1{3,}")
+_OPEN_REDIRECT_KEYS = frozenset((
+    "url", "redirect", "redir", "next", "dest", "destination", "return", "returnurl",
+    "continue", "goto", "target", "link", "callback", "return_to", "returnto", "u", "r", "to",
+))
+_SUSPICIOUS_TLDS = frozenset((
+    "xyz", "top", "club", "click", "link", "country", "tk", "ml", "ga", "cf", "gq", "zip",
+    "mov", "rest", "cfd", "sbs", "shop", "online", "site", "web", "live", "icu", "buzz",
+    "work", "support", "account", "security", "loan", "win", "review", "download", "science",
+    "gq", "kim", "men", "date", "faith", "racing", "party", "stream", "gdn", "wang",
+))
+_COM_LOOKALIKES = frozenset(("cm", "co", "con", "comm", "comn", "c0m", "vom", "comcom", "corn", "cöm"))
 
 SUSPICIOUS_WORDS = (
     "login", "log-in", "signin", "sign-in", "logon", "verify", "verification",
@@ -189,9 +286,31 @@ def _features_one(norm: str) -> dict:
     brand_in_reg = any(b in domain for b in BRANDS)
     brand_elsewhere = any(b in non_reg for b in BRANDS)
     free_host = any(f in host for f in FREE_HOSTS)
+    homoglyphs, host_nonascii, mixed_script = _host_scripts(host)
+    octal_ip, dword_ip, hex_ip = _ip_tricks(host)
+    left_sub = sub.split(".")[0] if sub else ""
+    tld = suffix.split(".")[-1] if suffix else ""
 
     return {
         **_brand_features(domain, sub, path, query, free_host),
+        "brand_min_editdist": _brand_min_edit(domain),
+        "homoglyph_count": homoglyphs,
+        "has_homoglyph": int(homoglyphs > 0),
+        "host_nonascii": host_nonascii,
+        "has_mixed_script": mixed_script,
+        "has_octal_ip": octal_ip,
+        "has_dword_ip": dword_ip,
+        "has_hex_ip": hex_ip,
+        "encoded_url_in_path": int(bool(_ENCODED_URL_RE.search(path + query))),
+        "open_redirect_param": _open_redirect(query),
+        "emoji_in_url": int(any(ord(ch) > 0x1F300 for ch in norm)),
+        "consecutive_repeats": int(bool(_REPEAT_RE.search(lower))),
+        "tld_is_suspicious": int(tld in _SUSPICIOUS_TLDS),
+        "tld_looks_like_com": int(tld in _COM_LOOKALIKES),
+        "tld_is_cctld": int(len(tld) == 2 and tld.isalpha()),
+        "leftmost_sub_len": len(left_sub),
+        "leftmost_sub_entropy": _entropy(left_sub),
+        "long_random_sub": int(len(left_sub) >= 12 and _entropy(left_sub) >= 3.5),
         "url_len": len(norm),
         "host_len": len(host),
         "path_len": len(path),

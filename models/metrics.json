@@ -1,150 +1,332 @@
 {
-  "threshold": 0.454,
+  "threshold": 0.4624,
+  "second_stage": "lightgbm",
+  "calibrated": true,
   "test": {
     "char_ngram_only": {
-      "n": 234683,
-      "accuracy": 0.9003,
-      "precision": 0.9182,
-      "recall": 0.8785,
-      "f1": 0.8979,
-      "roc_auc": 0.9649,
-      "pr_auc": 0.9684,
-      "false_positive_rate": 0.078
+      "n": 280337,
+      "accuracy": 0.876,
+      "precision": 0.878,
+      "recall": 0.8881,
+      "f1": 0.883,
+      "roc_auc": 0.9462,
+      "pr_auc": 0.9511,
+      "false_positive_rate": 0.1374,
+      "log_loss": 0.3081,
+      "brier": 0.0943,
+      "recall_at_1pct_fpr": 0.4702,
+      "recall_at_0.1pct_fpr": 0.2517
     },
     "lexical_gbm_only": {
-      "n": 234683,
-      "accuracy": 0.8897,
-      "precision": 0.9068,
-      "recall": 0.8684,
-      "f1": 0.8872,
-      "roc_auc": 0.9613,
-      "pr_auc": 0.9663,
-      "false_positive_rate": 0.089
+      "n": 280337,
+      "accuracy": 0.8623,
+      "precision": 0.8826,
+      "recall": 0.852,
+      "f1": 0.867,
+      "roc_auc": 0.9429,
+      "pr_auc": 0.9515,
+      "false_positive_rate": 0.1263,
+      "log_loss": 0.3052,
+      "brier": 0.0969,
+      "recall_at_1pct_fpr": 0.5571,
+      "recall_at_0.1pct_fpr": 0.3471
     },
     "stacked": {
-      "n": 234683,
-      "accuracy": 0.924,
-      "precision": 0.9381,
-      "recall": 0.9076,
-      "f1": 0.9226,
-      "roc_auc": 0.9795,
-      "pr_auc": 0.9819,
-      "false_positive_rate": 0.0597
+      "n": 280337,
+      "accuracy": 0.9044,
+      "precision": 0.9112,
+      "recall": 0.907,
+      "f1": 0.9091,
+      "roc_auc": 0.9698,
+      "pr_auc": 0.9742,
+      "false_positive_rate": 0.0984,
+      "log_loss": 0.2425,
+      "brier": 0.0714,
+      "recall_at_1pct_fpr": 0.6682,
+      "recall_at_0.1pct_fpr": 0.4292
+    },
+    "stacked_uncalibrated": {
+      "n": 280337,
+      "accuracy": 0.9046,
+      "precision": 0.9121,
+      "recall": 0.9062,
+      "f1": 0.9091,
+      "roc_auc": 0.9698,
+      "pr_auc": 0.9742,
+      "false_positive_rate": 0.0973,
+      "log_loss": 0.2234,
+      "brier": 0.0685,
+      "recall_at_1pct_fpr": 0.6682,
+      "recall_at_0.1pct_fpr": 0.4292
     }
   },
   "test_by_source": {
+    "cert_pl": {
+      "n": 311,
+      "recall": 0.9421
+    },
     "hf_ealvaradob": {
-      "n": 980,
-      "accuracy": 0.8163,
-      "precision": 0.6812,
-      "recall": 0.9268,
-      "f1": 0.7852,
-      "roc_auc": 0.9529,
-      "pr_auc": 0.9379,
-      "false_positive_rate": 0.2464
+      "n": 1149,
+      "accuracy": 0.8964,
+      "precision": 0.7952,
+      "recall": 0.9588,
+      "f1": 0.8694,
+      "roc_auc": 0.9782,
+      "pr_auc": 0.9659,
+      "false_positive_rate": 0.1386,
+      "log_loss": 0.2669,
+      "brier": 0.0764,
+      "recall_at_1pct_fpr": 0.6877,
+      "recall_at_0.1pct_fpr": 0.5642
     },
     "hf_kmack": {
-      "n": 8057,
-      "accuracy": 0.9022,
-      "precision": 0.7314,
-      "recall": 0.9586,
-      "f1": 0.8297,
-      "roc_auc": 0.9797,
-      "pr_auc": 0.9636,
-      "false_positive_rate": 0.1165
+      "n": 8513,
+      "accuracy": 0.8885,
+      "precision": 0.7438,
+      "recall": 0.9585,
+      "f1": 0.8376,
+      "roc_auc": 0.9775,
+      "pr_auc": 0.9633,
+      "false_positive_rate": 0.1414,
+      "log_loss": 0.2929,
+      "brier": 0.0844,
+      "recall_at_1pct_fpr": 0.7916,
+      "recall_at_0.1pct_fpr": 0.5542
     },
     "kaggle_harisudhan_urls": {
-      "n": 27029,
-      "accuracy": 0.8752,
-      "precision": 0.9904,
-      "recall": 0.8591,
-      "f1": 0.9201,
-      "roc_auc": 0.9845,
-      "pr_auc": 0.9966,
-      "false_positive_rate": 0.0424
+      "n": 28031,
+      "accuracy": 0.8777,
+      "precision": 0.9886,
+      "recall": 0.8725,
+      "f1": 0.9269,
+      "roc_auc": 0.9696,
+      "pr_auc": 0.9955,
+      "false_positive_rate": 0.0803,
+      "log_loss": 0.2834,
+      "brier": 0.0902,
+      "recall_at_1pct_fpr": 0.5166,
+      "recall_at_0.1pct_fpr": 0.3765
     },
     "kaggle_malicious_urls": {
-      "n": 7039,
-      "accuracy": 0.878,
-      "precision": 0.9974,
-      "recall": 0.7829,
-      "f1": 0.8772,
-      "roc_auc": 0.9977,
-      "pr_auc": 0.9981,
-      "false_positive_rate": 0.0026
+      "n": 8107,
+      "accuracy": 0.9107,
+      "precision": 0.994,
+      "recall": 0.8161,
+      "f1": 0.8963,
+      "roc_auc": 0.9967,
+      "pr_auc": 0.9957,
+      "false_positive_rate": 0.0044,
+      "log_loss": 0.2161,
+      "brier": 0.0668,
+      "recall_at_1pct_fpr": 0.9658,
+      "recall_at_0.1pct_fpr": 0.4948
     },
     "kaggle_phishing_site_urls": {
-      "n": 66682,
-      "accuracy": 0.9678,
-      "precision": 0.8521,
-      "recall": 0.9544,
-      "f1": 0.9004,
-      "roc_auc": 0.9935,
-      "pr_auc": 0.9752,
-      "false_positive_rate": 0.0298
+      "n": 56979,
+      "accuracy": 0.9112,
+      "precision": 0.6755,
+      "recall": 0.9448,
+      "f1": 0.7878,
+      "roc_auc": 0.9769,
+      "pr_auc": 0.9133,
+      "false_positive_rate": 0.0958,
+      "log_loss": 0.2669,
+      "brier": 0.0722,
+      "recall_at_1pct_fpr": 0.6328,
+      "recall_at_0.1pct_fpr": 0.4192
+    },
+    "phishdestroy": {
+      "n": 18691,
+      "recall": 0.8947
     },
     "phishing_army": {
-      "n": 13919,
-      "recall": 0.8626
+      "n": 14854,
+      "recall": 0.8893
     },
     "phishing_database": {
-      "n": 40028,
-      "recall": 0.9779
+      "n": 35454,
+      "recall": 0.9594
     },
     "phishing_database_domains": {
-      "n": 14820,
-      "recall": 0.9094
+      "n": 10388,
+      "recall": 0.8661
+    },
+    "phreshphish": {
+      "n": 37701,
+      "accuracy": 0.9436,
+      "precision": 0.9044,
+      "recall": 0.9371,
+      "f1": 0.9205,
+      "roc_auc": 0.9879,
+      "pr_auc": 0.9791,
+      "false_positive_rate": 0.0529,
+      "log_loss": 0.1604,
+      "brier": 0.0432,
+      "recall_at_1pct_fpr": 0.8054,
+      "recall_at_0.1pct_fpr": 0.5011
     },
     "scam_domains": {
-      "n": 732,
-      "recall": 0.3169
+      "n": 684,
+      "recall": 0.3655
     },
     "tranco": {
-      "n": 6165,
-      "false_positive_rate": 0.0907
+      "n": 6071,
+      "false_positive_rate": 0.1291
     },
     "tranco_majestic": {
-      "n": 27491,
-      "false_positive_rate": 0.09
+      "n": 27595,
+      "false_positive_rate": 0.1336
     },
     "uci_phiusiil": {
-      "n": 21741,
-      "accuracy": 0.8702,
-      "precision": 0.8498,
-      "recall": 0.8165,
-      "f1": 0.8328,
-      "roc_auc": 0.9255,
-      "pr_auc": 0.9259,
-      "false_positive_rate": 0.0947
+      "n": 25809,
+      "accuracy": 0.883,
+      "precision": 0.8766,
+      "recall": 0.884,
+      "f1": 0.8803,
+      "roc_auc": 0.9499,
+      "pr_auc": 0.9615,
+      "false_positive_rate": 0.118,
+      "log_loss": 0.2756,
+      "brier": 0.0836,
+      "recall_at_1pct_fpr": 0.7971,
+      "recall_at_0.1pct_fpr": 0.7015
     }
   },
   "test_brand_impersonation_slice": {
-    "n": 31323,
-    "accuracy": 0.9488,
-    "precision": 0.9678,
-    "recall": 0.964,
-    "f1": 0.9659,
-    "roc_auc": 0.9878,
-    "pr_auc": 0.9961,
-    "false_positive_rate": 0.0971
+    "n": 39983,
+    "accuracy": 0.9444,
+    "precision": 0.9608,
+    "recall": 0.9577,
+    "f1": 0.9593,
+    "roc_auc": 0.9873,
+    "pr_auc": 0.9943,
+    "false_positive_rate": 0.0844,
+    "log_loss": 0.1521,
+    "brier": 0.0421,
+    "recall_at_1pct_fpr": 0.8555,
+    "recall_at_0.1pct_fpr": 0.6819
   },
   "live_recall_by_feed": {
-    "openphish": 0.9465,
-    "phishunt": 0.9004
+    "openphish": 0.9898,
+    "phishstats": 0.9561,
+    "phishunt": 0.9856
+  },
+  "external": {
+    "ext_phreshphish": {
+      "n": 163388,
+      "accuracy": 0.9423,
+      "precision": 0.9382,
+      "recall": 0.935,
+      "f1": 0.9366,
+      "roc_auc": 0.9879,
+      "pr_auc": 0.9869,
+      "false_positive_rate": 0.0516,
+      "log_loss": 0.1618,
+      "brier": 0.0442,
+      "recall_at_1pct_fpr": 0.8435,
+      "recall_at_0.1pct_fpr": 0.6366
+    },
+    "ext_phreshphish_unseen_domain": {
+      "n": 73335,
+      "accuracy": 0.9099,
+      "precision": 0.9347,
+      "recall": 0.912,
+      "f1": 0.9232,
+      "roc_auc": 0.9735,
+      "pr_auc": 0.9824,
+      "false_positive_rate": 0.0933,
+      "log_loss": 0.2305,
+      "brier": 0.0676,
+      "recall_at_1pct_fpr": 0.7157,
+      "recall_at_0.1pct_fpr": 0.4468
+    },
+    "ext_phreshphish_seen_domain": {
+      "n": 90053,
+      "accuracy": 0.9687,
+      "precision": 0.943,
+      "recall": 0.9674,
+      "f1": 0.955,
+      "roc_auc": 0.9947,
+      "pr_auc": 0.9921,
+      "false_positive_rate": 0.0307,
+      "log_loss": 0.1059,
+      "brier": 0.0252,
+      "recall_at_1pct_fpr": 0.9509,
+      "recall_at_0.1pct_fpr": 0.8715
+    },
+    "ext_jpxxx": {
+      "n": 82924,
+      "accuracy": 0.8757,
+      "precision": 0.4412,
+      "recall": 0.8995,
+      "f1": 0.592,
+      "roc_auc": 0.9389,
+      "pr_auc": 0.8605,
+      "false_positive_rate": 0.1269,
+      "log_loss": 0.3229,
+      "brier": 0.0928,
+      "recall_at_1pct_fpr": 0.706,
+      "recall_at_0.1pct_fpr": 0.5212
+    },
+    "ext_jpxxx_unseen_domain": {
+      "n": 63102,
+      "accuracy": 0.8588,
+      "precision": 0.3545,
+      "recall": 0.8951,
+      "f1": 0.5078,
+      "roc_auc": 0.9395,
+      "pr_auc": 0.8081,
+      "false_positive_rate": 0.1444,
+      "log_loss": 0.3582,
+      "brier": 0.1044,
+      "recall_at_1pct_fpr": 0.6121,
+      "recall_at_0.1pct_fpr": 0.4361
+    },
+    "ext_jpxxx_seen_domain": {
+      "n": 19822,
+      "accuracy": 0.9297,
+      "precision": 0.7238,
+      "recall": 0.9067,
+      "f1": 0.805,
+      "roc_auc": 0.9448,
+      "pr_auc": 0.9217,
+      "false_positive_rate": 0.066,
+      "log_loss": 0.2105,
+      "brier": 0.056,
+      "recall_at_1pct_fpr": 0.8626,
+      "recall_at_0.1pct_fpr": 0.6156
+    },
+    "ext_deepurlbench": {
+      "n": 200000,
+      "accuracy": 0.8084,
+      "precision": 0.7333,
+      "recall": 0.9693,
+      "f1": 0.8349,
+      "roc_auc": 0.9454,
+      "pr_auc": 0.9447,
+      "false_positive_rate": 0.3525,
+      "log_loss": 0.5488,
+      "brier": 0.1557,
+      "recall_at_1pct_fpr": 0.4428,
+      "recall_at_0.1pct_fpr": 0.1878
+    }
   },
   "rows": {
-    "train": 1835018,
-    "val": 201179,
-    "test": 234683,
-    "live": 1052,
-    "refit": 2282255
+    "train": 2399377,
+    "val": 269999,
+    "test": 280337,
+    "live": 2368,
+    "ext_phreshphish": 163388,
+    "ext_jpxxx": 82924,
+    "refit": 2959334
   },
   "boosting_iterations": {
-    "lexical": 311,
-    "stacked": 251
+    "lexical": 370,
+    "stacked": 290
   },
   "refit_live_recall_by_feed": {
-    "openphish": 0.9398,
-    "phishunt": 0.8845
+    "openphish": 0.9864,
+    "phishstats": 0.9444,
+    "phishunt": 0.9799
   }
 }

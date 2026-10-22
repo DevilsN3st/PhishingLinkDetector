@@ -1,0 +1,18 @@
+{
+  "model": "rf_features",
+  "family": "lexical features",
+  "train_rows": 1835018,
+  "roc_auc": 0.9518,
+  "pr_auc": 0.9582,
+  "f1": 0.8765,
+  "precision": 0.9024,
+  "recall": 0.8519,
+  "fpr": 0.0918,
+  "brand_slice_f1": 0.9407,
+  "live_openphish_recall": 0.9632,
+  "live_phishunt_recall": 0.9615,
+  "train_seconds": 36.1,
+  "urls_per_sec": 21579,
+  "size_mb": 158.4,
+  "notes": "150 trees, TLD as ordinal code"
+}

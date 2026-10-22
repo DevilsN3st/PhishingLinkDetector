@@ -1,0 +1,9 @@
+{
+  "model": "stacked_lgbm_200k",
+  "family": "stacked (text + features)",
+  "train_rows": 200000,
+  "train_seconds": 36.5,
+  "urls_per_sec": 1791,
+  "size_mb": 9.5,
+  "notes": ""
+}

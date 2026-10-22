@@ -1,0 +1,18 @@
+{
+  "model": "lr_features",
+  "family": "lexical features",
+  "train_rows": 1835018,
+  "roc_auc": 0.9344,
+  "pr_auc": 0.9438,
+  "f1": 0.85,
+  "precision": 0.8524,
+  "recall": 0.8477,
+  "fpr": 0.1463,
+  "brand_slice_f1": 0.9328,
+  "live_openphish_recall": 0.9465,
+  "live_phishunt_recall": 0.9522,
+  "train_seconds": 32.5,
+  "urls_per_sec": 20821,
+  "size_mb": 0.0,
+  "notes": "standardized + one-hot TLD"
+}
