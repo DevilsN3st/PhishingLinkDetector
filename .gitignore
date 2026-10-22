@@ -8,4 +8,5 @@ models/*.parquet
 models/*.log
 benchmarks/**/__pycache__/
 benchmarks/*.log
+benchmarks/**/*.log
 benchmarks/results/scores/*.npz
